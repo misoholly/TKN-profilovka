@@ -29,22 +29,16 @@ Kódy kandidátov: 1. obvod `o1-07` Čibrik, `o1-09` Kántorová, `o1-10` Ková�
 
 ## Postup nasadenia (pre Michala, len klikanie)
 
-### Krok 1 – Repozitár na GitHube
+### Krok 1 – Repozitár na GitHube (hotové)
 
-1. Otvorte <https://github.com/new> (ste prihlásený ako misoholly).
-2. **Repository name:** `tkn-profilovka`.
-3. Zvoľte **Private** (stačí, Vercel s ním vie pracovať) alebo Public.
-4. Nič ďalšie nezaškrtávajte (žiadne README, .gitignore ani licenciu). Kliknite **Create repository**.
-5. Na stránke prázdneho repozitára kliknite na odkaz **uploading an existing file**.
-6. V Prieskumníkovi otvorte `C:\PROJECTS\tkn-profilovka`, označte všetko okrem priečinkov `node_modules` a `overenie` a pretiahnite to do okna prehliadača.
-7. Dole kliknite **Commit changes**.
+Kód je v súkromnom repozitári <https://github.com/misoholly/TKN-profilovka>, vo vetve **main**, ktorá je nastavená ako hlavná. Netreba nič robiť.
 
-Ak repozitár už založil Claude, tento krok preskočte.
+V repozitári je aj staršia vetva `claude/gallant-lamport-l6j1t6`. To je predchádzajúca verzia podľa zadania 120 s dvoma stránkami. Nepoužíva sa, ale ostala zachovaná. Jej súbor NASADENIE.md (premenovanie vetvy) už neplatí.
 
 ### Krok 2 – Vercel (preview adresa na testovanie)
 
 1. Otvorte <https://vercel.com/new> a prihláste sa cez **Continue with GitHub**.
-2. V zozname **Import Git Repository** nájdite `tkn-profilovka` a kliknite **Import**. Ak ho nevidíte, kliknite **Adjust GitHub App Permissions** a povoľte prístup k tomuto repozitáru.
+2. V zozname **Import Git Repository** nájdite `TKN-profilovka` a kliknite **Import**. Ak ho nevidíte, kliknite **Adjust GitHub App Permissions** a povoľte prístup k tomuto repozitáru.
 3. **Framework Preset:** nechajte **Other**. **Build Command** a **Output Directory** nechajte prázdne.
 4. Kliknite **Deploy**. Po pár sekundách dostanete adresu typu `tkn-profilovka.vercel.app`.
 5. Otvorte ju na počítači aj na mobile a vyskúšajte: nahrať fotku, stiahnuť, na mobile „Uložiť do fotiek / zdieľať“.
