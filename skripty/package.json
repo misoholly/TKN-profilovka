@@ -1,0 +1,11 @@
+{
+  "name": "tkn-profilovka-skripty",
+  "private": true,
+  "type": "module",
+  "description": "Pomocné skripty (OG obrázok, favicony, overenie). Web sám nič z toho nepotrebuje.",
+  "devDependencies": {
+    "playwright-core": "^1.56.0",
+    "sharp": "^0.34.5",
+    "pngjs": "^7.0.0"
+  }
+}
