@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rámček do profilovej fotky – Zmena pre Šaľu</title>
+  <meta name="description" content="Pridajte si do profilovky rámček Volím Čibrika za primátora a kandidátov Tím Kraj Nitra. Fotka zostáva vo vašom prehliadači.">
+  <link rel="canonical" href="https://profilovka.zmenapresalu.sk/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="sk_SK">
+  <meta property="og:site_name" content="Zmena pre Šaľu">
+  <meta property="og:url" content="https://profilovka.zmenapresalu.sk/">
+  <meta property="og:title" content="Rámček do profilovej fotky – Zmena pre Šaľu">
+  <meta property="og:description" content="Pridajte si do profilovky rámček Volím Čibrika za primátora a kandidátov Tím Kraj Nitra. Fotka zostáva vo vašom prehliadači.">
+  <meta property="og:image" content="https://profilovka.zmenapresalu.sk/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Vyrobte si rámček do profilovky – Tím Kraj Nitra, Zmena pre Šaľu">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#28408E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reddit+Sans:wght@400;700;900&display=swap">
+  <link rel="stylesheet" href="/styl.css">
+</head>
+<body>
+  <a class="preskocit" href="#obsah">Preskočiť na obsah</a>
+
+  <header class="hlavicka">
+    <div class="obal hlavicka-vnutro">
+      <a class="znacka" href="/">
+        <img src="/logo/tkn-logo-biele-pismo.svg" alt="" width="48" height="50">
+        <span>Tím Kraj Nitra <b><span class="zmena">Zmena</span> <span class="pre-salu">pre Šaľu</span></b></span>
+      </a>
+      <a class="prepojenie" href="/kandidati">Ste kandidát TKN? Rámček pre kandidátov →</a>
+    </div>
+  </header>
+
+  <main id="obsah" class="obal">
+    <h1>Rámček do profilovej fotky</h1>
+    <p class="uvod">Ukážte známym, koho 24. októbra volíte. Vyberte tvar rámčeka, nahrajte fotku, dolaďte výrez a stiahnite si ju – potom si ju nastavte ako profilovú.</p>
+    <p class="sukromie">Fotka zostáva vo vašom prehliadači. Neodosiela sa nám, neukladáme ju a nikde sa neobjaví.</p>
+
+    <section class="krok" aria-labelledby="krok-tvar">
+      <h2 id="krok-tvar"><span class="cislo" aria-hidden="true">1</span> Vyberte tvar</h2>
+      <div id="tvary" class="tvary" role="radiogroup" aria-labelledby="krok-tvar"></div>
+    </section>
+
+    <section class="krok" aria-labelledby="krok-fotka">
+      <h2 id="krok-fotka"><span class="cislo" aria-hidden="true">2</span> Nahrajte fotku a dolaďte výrez</h2>
+      <div class="vyber-fotky">
+        <label class="tlacidlo tlacidlo-modre">
+          <input id="fotka" type="file" accept="image/*" class="sr-only">
+          <span id="fotka-text">Vybrať fotku</span>
+        </label>
+        <span class="pomocny len-desktop">alebo ju pretiahnite do náhľadu nižšie</span>
+      </div>
+      <p id="chyba" class="chyba" role="alert" hidden></p>
+
+      <div id="nahlad-obal" class="nahlad-obal">
+        <canvas id="nahlad" width="1040" height="1040" role="img" aria-label="Náhľad rámčeka. Fotku vyberte tlačidlom Vybrať fotku."></canvas>
+        <p id="hlaska" class="hlaska" role="status" hidden></p>
+      </div>
+
+      <div id="ovladanie" class="ovladanie" hidden>
+        <label for="priblizenie">Priblíženie</label>
+        <div class="zoom">
+          <button id="oddialit" type="button" aria-label="Oddialiť">−</button>
+          <input id="priblizenie" type="range" min="1" max="4" step="0.01" value="1">
+          <button id="priblizit" type="button" aria-label="Priblížiť">+</button>
+        </div>
+        <button id="vycentrovat" type="button" class="odkaz-tlacidlo">Vycentrovať</button>
+        <p class="pomocny">Fotku posuniete ťahaním. Priblížite posuvníkom, kolieskom myši alebo dvoma prstami. Stmavená časť sa do profilovky nedostane.</p>
+      </div>
+    </section>
+
+    <section class="krok" aria-labelledby="krok-stiahnut">
+      <h2 id="krok-stiahnut"><span class="cislo" aria-hidden="true">3</span> Stiahnite si profilovku</h2>
+      <div class="akcie">
+        <button id="stiahnut" type="button" class="tlacidlo tlacidlo-cervene" disabled>Stiahnuť fotku</button>
+        <button id="zdielat" type="button" class="tlacidlo" hidden>Uložiť do fotiek / zdieľať</button>
+      </div>
+    </section>
+
+    <section class="krok navod" aria-labelledby="ako-nastavit">
+      <h2 id="ako-nastavit">Ako si ju nastavíte</h2>
+      <ol>
+        <li>Stiahnite si fotku tlačidlom vyššie.</li>
+        <li>Na Facebooku kliknite na svoju profilovú fotku a dajte „Aktualizovať profilovú fotku“.</li>
+        <li>Vyberte stiahnutý súbor.</li>
+      </ol>
+      <p class="pomocny">Fotka je orezaná do kruhu a rohy sú modré. Tam, kde profil zobrazí kruh, rohy nevidno; tam, kde štvorec, je z nej modrá dlaždica.</p>
+      <div class="upozornenie">
+        <p><b>Pri nahrávaní fotku už nepribližujte ani neposúvajte.</b></p>
+        <p>Facebook ponúkne doladenie výrezu. Ak s fotkou pohnete, odrežete si časť rámčeka. Nechajte ju tak, ako je, a rovno uložte.</p>
+      </div>
+      <p class="pomocny">Funguje to rovnako na Instagrame, LinkedIne aj vo WhatsApp – všade, kde sa profilovka oreže do kruhu.</p>
+    </section>
+
+    <p class="prepojenie-stranok"><a href="/kandidati">Ste kandidát TKN? Rámček pre kandidátov →</a></p>
+  </main>
+
+  <footer class="paticka">
+    <div class="obal">
+      <p>Fotka zostáva vo vašom prehliadači. Stránka nepoužíva cookies ani analytiku.</p>
+      <p><a href="https://www.facebook.com/ZmenapreSalu">Zmena pre Šaľu na Facebooku</a></p>
+      <!-- ZÁKONNÉ OZNAČENIE (zákon č. 181/2014 Z. z. o volebnej kampani) – presné znenie dodá TKN.
+           Rovnaký riadok je aj v kandidati/index.html – meniť na oboch miestach. -->
+      <p class="zakonne">Objednávateľ: [DOPLNIŤ] · Dodávateľ: [DOPLNIŤ]</p>
+    </div>
+  </footer>
+
+  <noscript><p class="obal">Rámček sa kreslí v prehliadači – zapnite si, prosím, JavaScript.</p></noscript>
+
+  <script src="/ramcek.js"></script>
+  <script>
+    /*
+     * TEXT RÁMČEKA (odsúhlasené 18. 10. 2026 – jeden text, tvary A / B / C).
+     *   t = text riadku; časť medzi hviezdičkami *…* je zvýraznená (žltá na modrej, červená na nálepke)
+     *   v = hrúbka písma (400 / 700 / 900)
+     *   s = relatívna veľkosť riadku (1 = základ); príliš dlhý riadok sa automaticky zmenší
+     *   ab = riadky pre tvary A a B (5 riadkov), c = riadky pre nálepku C (6 riadkov)
+     */
+    const MOTIVY = [
+      {
+        id: 'volim-cibrika',
+        ab: [
+          { t: 'VOLÍM *ČIBRIKA*', v: 900, s: 1.25 },
+          { t: 'ZA PRIMÁTORA', v: 900, s: 1 },
+          { t: 'A KANDIDÁTOV', v: 700, s: 0.8 },
+          { t: '*TÍM KRAJ NITRA*', v: 900, s: 1 },
+          { t: 'ZA POSLANCOV', v: 900, s: 1 }
+        ],
+        c: [
+          { t: 'VOLÍM', v: 700, s: 0.8 },
+          { t: '*ČIBRIKA*', v: 900, s: 1.35 },
+          { t: 'ZA PRIMÁTORA', v: 900, s: 0.9 },
+          { t: 'A KANDIDÁTOV', v: 700, s: 0.75 },
+          { t: '*TÍM KRAJ NITRA*', v: 900, s: 0.95 },
+          { t: 'ZA POSLANCOV', v: 900, s: 0.9 }
+        ]
+      }
+    ];
+
+    Ramcek.spustiEditor({
+      tvar: 'A',
+      riadky: function (tvar) {
+        return tvar === 'C' ? MOTIVY[0].c : MOTIVY[0].ab;
+      }
+    });
+  </script>
+</body>
+</html>

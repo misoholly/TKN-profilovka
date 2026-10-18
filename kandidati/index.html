@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="sk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rámček pre kandidátov – Tím Kraj Nitra</title>
+  <meta name="description" content="Rámček do profilovky pre kandidátov Tím Kraj Nitra – s vaším menom, číslom a obvodom. Fotka zostáva vo vašom prehliadači.">
+  <link rel="canonical" href="https://profilovka.zmenapresalu.sk/kandidati">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="sk_SK">
+  <meta property="og:site_name" content="Zmena pre Šaľu">
+  <meta property="og:url" content="https://profilovka.zmenapresalu.sk/kandidati">
+  <meta property="og:title" content="Rámček pre kandidátov – Tím Kraj Nitra">
+  <meta property="og:description" content="Rámček do profilovky pre kandidátov Tím Kraj Nitra – s vaším menom, číslom a obvodom. Fotka zostáva vo vašom prehliadači.">
+  <meta property="og:image" content="https://profilovka.zmenapresalu.sk/og-image-kandidati.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Rámček do profilovky pre kandidátov Tím Kraj Nitra">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#28408E">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reddit+Sans:wght@400;700;900&display=swap">
+  <link rel="stylesheet" href="/styl.css">
+</head>
+<body>
+  <a class="preskocit" href="#obsah">Preskočiť na obsah</a>
+
+  <header class="hlavicka">
+    <div class="obal hlavicka-vnutro">
+      <a class="znacka" href="/">
+        <img src="/logo/tkn-logo-biele-pismo.svg" alt="" width="48" height="50">
+        <span>Tím Kraj Nitra <b><span class="zmena">Zmena</span> <span class="pre-salu">pre Šaľu</span></b></span>
+      </a>
+      <a class="prepojenie" href="/">← Rámček pre voličov</a>
+    </div>
+  </header>
+
+  <main id="obsah" class="obal">
+    <h1>Rámček pre kandidátov</h1>
+    <p class="uvod">Rámček s vaším menom a číslom pre kandidátov Tím Kraj Nitra. Vyberte sa zo zoznamu, zvoľte text a tvar, nahrajte fotku a stiahnite si ju.</p>
+    <p class="sukromie">Fotka zostáva vo vašom prehliadači. Neodosiela sa nám, neukladáme ju a nikde sa neobjaví.</p>
+
+    <section class="krok" aria-labelledby="krok-kandidat">
+      <h2 id="krok-kandidat"><span class="cislo" aria-hidden="true">1</span> Vyberte kandidáta</h2>
+      <div class="polia">
+        <label class="pole">Obvod
+          <select id="obvod">
+            <option value="P">Primátor</option>
+            <option value="1">1. volebný obvod</option>
+            <option value="2">2. volebný obvod</option>
+            <option value="3">3. volebný obvod</option>
+          </select>
+        </label>
+        <label class="pole">Meno
+          <select id="kandidat"></select>
+        </label>
+      </div>
+    </section>
+
+    <section class="krok" aria-labelledby="krok-text">
+      <h2 id="krok-text"><span class="cislo" aria-hidden="true">2</span> Vyberte text</h2>
+      <fieldset class="prepinac">
+        <legend class="sr-only">Text rámčeka</legend>
+        <label><input type="radio" name="text" value="kruzkujte" checked> Krúžkujte <small>– číslo a meno</small></label>
+        <label><input type="radio" name="text" value="kandidujem"> Kandidujem</label>
+      </fieldset>
+    </section>
+
+    <section class="krok" aria-labelledby="krok-tvar">
+      <h2 id="krok-tvar"><span class="cislo" aria-hidden="true">3</span> Vyberte tvar</h2>
+      <div id="tvary" class="tvary" role="radiogroup" aria-labelledby="krok-tvar"></div>
+    </section>
+
+    <section class="krok" aria-labelledby="krok-fotka">
+      <h2 id="krok-fotka"><span class="cislo" aria-hidden="true">4</span> Nahrajte fotku a dolaďte výrez</h2>
+      <div class="vyber-fotky">
+        <label class="tlacidlo tlacidlo-modre">
+          <input id="fotka" type="file" accept="image/*" class="sr-only">
+          <span id="fotka-text">Vybrať fotku</span>
+        </label>
+        <span class="pomocny len-desktop">alebo ju pretiahnite do náhľadu nižšie</span>
+      </div>
+      <p id="chyba" class="chyba" role="alert" hidden></p>
+
+      <div id="nahlad-obal" class="nahlad-obal">
+        <canvas id="nahlad" width="1040" height="1040" role="img" aria-label="Náhľad rámčeka. Fotku vyberte tlačidlom Vybrať fotku."></canvas>
+        <p id="hlaska" class="hlaska" role="status" hidden></p>
+      </div>
+
+      <div id="ovladanie" class="ovladanie" hidden>
+        <label for="priblizenie">Priblíženie</label>
+        <div class="zoom">
+          <button id="oddialit" type="button" aria-label="Oddialiť">−</button>
+          <input id="priblizenie" type="range" min="1" max="4" step="0.01" value="1">
+          <button id="priblizit" type="button" aria-label="Priblížiť">+</button>
+        </div>
+        <button id="vycentrovat" type="button" class="odkaz-tlacidlo">Vycentrovať</button>
+        <p class="pomocny">Fotku posuniete ťahaním. Priblížite posuvníkom, kolieskom myši alebo dvoma prstami. Stmavená časť sa do profilovky nedostane.</p>
+      </div>
+    </section>
+
+    <section class="krok" aria-labelledby="krok-stiahnut">
+      <h2 id="krok-stiahnut"><span class="cislo" aria-hidden="true">5</span> Stiahnite si profilovku</h2>
+      <div class="akcie">
+        <button id="stiahnut" type="button" class="tlacidlo tlacidlo-cervene" disabled>Stiahnuť fotku</button>
+        <button id="zdielat" type="button" class="tlacidlo" hidden>Uložiť do fotiek / zdieľať</button>
+      </div>
+    </section>
+
+    <section class="krok navod" aria-labelledby="ako-nastavit">
+      <h2 id="ako-nastavit">Ako si ju nastavíte</h2>
+      <ol>
+        <li>Stiahnite si fotku tlačidlom vyššie.</li>
+        <li>Na Facebooku kliknite na svoju profilovú fotku a dajte „Aktualizovať profilovú fotku“.</li>
+        <li>Vyberte stiahnutý súbor.</li>
+      </ol>
+      <div class="upozornenie">
+        <p><b>Pri nahrávaní fotku už nepribližujte ani neposúvajte.</b></p>
+        <p>Facebook ponúkne doladenie výrezu. Ak s fotkou pohnete, odrežete si časť rámčeka. Nechajte ju tak, ako je, a rovno uložte.</p>
+      </div>
+      <p class="pomocny">Odkaz s predvoleným menom (napr. na poslanie podporovateľom) je v adresnom riadku – mení sa podľa výberu.</p>
+    </section>
+
+    <p class="prepojenie-stranok"><a href="/">← Rámček pre voličov</a></p>
+  </main>
+
+  <footer class="paticka">
+    <div class="obal">
+      <p>Fotka zostáva vo vašom prehliadači. Stránka nepoužíva cookies ani analytiku.</p>
+      <p><a href="https://www.facebook.com/ZmenapreSalu">Zmena pre Šaľu na Facebooku</a></p>
+      <!-- ZÁKONNÉ OZNAČENIE (zákon č. 181/2014 Z. z. o volebnej kampani) – presné znenie dodá TKN.
+           Rovnaký riadok je aj v index.html – meniť na oboch miestach. -->
+      <p class="zakonne">Objednávateľ: [DOPLNIŤ] · Dodávateľ: [DOPLNIŤ]</p>
+    </div>
+  </footer>
+
+  <noscript><p class="obal">Rámček sa kreslí v prehliadači – zapnite si, prosím, JavaScript.</p></noscript>
+
+  <script src="/ramcek.js"></script>
+  <script>
+    /*
+     * KANDIDÁTI TÍM KRAJ NITRA – voľby 24. 10. 2026, Šaľa (19 kandidátov: 1 primátor + 3 × 6 poslancov).
+     * Zdroj: Mesto Šaľa, zoznamy zaregistrovaných kandidátov z 10. 9. 2026 –
+     *        f8007.pdf (primátor), f8008.pdf (poslanci); prepis v 19-KANDIDATI-2026.md.
+     * Čísla, obvody a tituly NEMENIŤ bez overenia v oficiálnom zozname.
+     * id = odkaz s predvoleným kandidátom, napr. /kandidati?k=o1-09
+     */
+    const KANDIDATI = [
+      { id: 'p-02',  obvod: 'P', cislo: 2,  tituly: 'Mgr.',       meno: 'Róbert',   priezvisko: 'Čibrik' },
+
+      { id: 'o1-07', obvod: '1', cislo: 7,  tituly: 'Mgr.',       meno: 'Róbert',   priezvisko: 'Čibrik' },
+      { id: 'o1-09', obvod: '1', cislo: 9,  tituly: 'Ing.',       meno: 'Ingrid',   priezvisko: 'Kántorová' },
+      { id: 'o1-10', obvod: '1', cislo: 10, tituly: '',           meno: 'Milan',    priezvisko: 'Kováč' },
+      { id: 'o1-11', obvod: '1', cislo: 11, tituly: '',           meno: 'Jakub',    priezvisko: 'Matajs' },
+      { id: 'o1-15', obvod: '1', cislo: 15, tituly: 'Mgr.',       meno: 'Boris',    priezvisko: 'Petrušek' },
+      { id: 'o1-18', obvod: '1', cislo: 18, tituly: 'Ing.',       meno: 'Róbert',   priezvisko: 'Šuran' },
+
+      { id: 'o2-01', obvod: '2', cislo: 1,  tituly: 'Bc.',        meno: 'Peter',    priezvisko: 'Baláž' },
+      { id: 'o2-03', obvod: '2', cislo: 3,  tituly: 'MUDr.',      meno: 'Martin',   priezvisko: 'Gabarík' },
+      { id: 'o2-08', obvod: '2', cislo: 8,  tituly: 'Ing.',       meno: 'Zuzana',   priezvisko: 'Mareková' },
+      { id: 'o2-11', obvod: '2', cislo: 11, tituly: 'Mgr.',       meno: 'Zuzana',   priezvisko: 'Nováková' },
+      { id: 'o2-13', obvod: '2', cislo: 13, tituly: '',           meno: 'Peter',    priezvisko: 'Schreiber' },
+      { id: 'o2-19', obvod: '2', cislo: 19, tituly: 'Ing.',       meno: 'Ivan',     priezvisko: 'Vlk' },
+
+      { id: 'o3-02', obvod: '3', cislo: 2,  tituly: 'Mgr.',       meno: 'Peter',    priezvisko: 'Bača' },
+      { id: 'o3-04', obvod: '3', cislo: 4,  tituly: 'Ing.',       meno: 'Martina',  priezvisko: 'Eleková' },
+      { id: 'o3-11', obvod: '3', cislo: 11, tituly: '',           meno: 'František', priezvisko: 'Kovács' },
+      { id: 'o3-12', obvod: '3', cislo: 12, tituly: 'MUDr., MPH', meno: 'Katarína', priezvisko: 'Kováčová' },
+      { id: 'o3-15', obvod: '3', cislo: 15, tituly: 'PhD.',       meno: 'Peter',    priezvisko: 'Plenta' },
+      { id: 'o3-18', obvod: '3', cislo: 18, tituly: 'Ing.',       meno: 'Erika',    priezvisko: 'Sedlárová' }
+    ];
+
+    function celeMeno(k) {
+      return (k.tituly ? k.tituly + ' ' : '') + k.meno + ' ' + k.priezvisko;
+    }
+
+    /*
+     * TEXT RÁMČEKA PRE KANDIDÁTA.
+     *   text = 'kruzkujte' alebo 'kandidujem'; tvar = 'A' | 'B' (5 riadkov) alebo 'C' nálepka (6 riadkov)
+     *   t = text riadku; časť medzi hviezdičkami *…* je zvýraznená
+     *   v = hrúbka písma (400 / 700 / 900), s = relatívna veľkosť riadku
+     *   Dlhé mená sa automaticky zmenšia, aby sa zmestili (nič sa neoreže).
+     */
+    function riadky(k, text, tvar) {
+      const primator = k.obvod === 'P';
+      const cislo = 'Č. ' + k.cislo;
+      const obvod = k.obvod + '. OBVOD';
+      const priezvisko = k.priezvisko.toLocaleUpperCase('sk');
+      const krstne = (k.tituly ? k.tituly + ' ' : '') + k.meno;
+
+      if (tvar === 'C') {
+        if (text === 'kandidujem') {
+          return [
+            { t: 'KANDIDUJEM', v: 900, s: 0.95 },
+            { t: krstne, v: 700, s: 0.8 },
+            { t: priezvisko, v: 900, s: 1.05 },
+            { t: primator ? 'ZA PRIMÁTORA' : 'DO ZASTUPITEĽSTVA', v: 700, s: 0.7 },
+            { t: primator ? '*' + cislo + '*' : obvod + ' · *' + cislo + '*', v: 900, s: 0.85 },
+            { t: '*TÍM KRAJ NITRA*', v: 900, s: 0.8 }
+          ];
+        }
+        return [
+          { t: 'KRÚŽKUJTE', v: 900, s: 0.85 },
+          { t: '*' + cislo + '*', v: 900, s: 1.5 },
+          { t: krstne, v: 700, s: 0.75 },
+          { t: priezvisko, v: 900, s: 0.95 },
+          { t: primator ? 'ZA PRIMÁTORA' : obvod, v: 700, s: 0.7 },
+          { t: '*TÍM KRAJ NITRA*', v: 900, s: 0.8 }
+        ];
+      }
+
+      if (text === 'kandidujem') {
+        return [
+          { t: 'KANDIDUJEM', v: 900, s: 1.15 },
+          { t: primator ? 'ZA PRIMÁTORA' : 'DO ZASTUPITEĽSTVA', v: 700, s: 0.75 },
+          { t: celeMeno(k), v: 700, s: 0.9 },
+          { t: primator ? '*' + cislo + '*' : obvod + ' · *' + cislo + '*', v: 900, s: 0.95 },
+          { t: '*TÍM KRAJ NITRA*', v: 900, s: 0.9 }
+        ];
+      }
+      return [
+        { t: 'KRÚŽKUJTE', v: 900, s: 1 },
+        { t: '*' + cislo + '*', v: 900, s: 1.5 },
+        { t: celeMeno(k), v: 700, s: 0.9 },
+        { t: primator ? 'ZA PRIMÁTORA' : obvod, v: 700, s: 0.75 },
+        { t: '*TÍM KRAJ NITRA*', v: 900, s: 0.9 }
+      ];
+    }
+
+    // --- Výber kandidáta ---
+    const vyberObvodu = document.getElementById('obvod');
+    const vyberKandidata = document.getElementById('kandidat');
+    let vybrany = KANDIDATI[0];
+
+    function textRamceka() {
+      const zvoleny = document.querySelector('input[name="text"]:checked');
+      return zvoleny ? zvoleny.value : 'kruzkujte';
+    }
+
+    function naplnMena(obvod, idNaVyber) {
+      vyberKandidata.innerHTML = '';
+      KANDIDATI.filter(function (k) { return k.obvod === obvod; }).forEach(function (k) {
+        const o = document.createElement('option');
+        o.value = k.id;
+        o.textContent = 'č. ' + k.cislo + ' – ' + celeMeno(k);
+        vyberKandidata.appendChild(o);
+      });
+      if (idNaVyber) vyberKandidata.value = idNaVyber;
+    }
+
+    function zvolKandidata(id, aktualizujAdresu) {
+      const k = KANDIDATI.find(function (x) { return x.id === id; });
+      if (!k) return false;
+      vybrany = k;
+      vyberObvodu.value = k.obvod;
+      naplnMena(k.obvod, k.id);
+      if (aktualizujAdresu && window.history && history.replaceState) {
+        history.replaceState(null, '', '?k=' + encodeURIComponent(k.id));
+      }
+      return true;
+    }
+
+    // Odkaz s predvoleným kandidátom ?k=o1-09; neznáme k sa ticho ignoruje.
+    let zAdresy = null;
+    try {
+      zAdresy = new URLSearchParams(window.location.search).get('k');
+    } catch (e) {}
+    if (!zAdresy || !zvolKandidata(zAdresy, false)) {
+      zvolKandidata(KANDIDATI[0].id, false);
+    }
+
+    const editor = Ramcek.spustiEditor({
+      tvar: 'A',
+      riadky: function (tvar) {
+        return riadky(vybrany, textRamceka(), tvar);
+      }
+    });
+
+    vyberObvodu.addEventListener('change', function () {
+      const prvy = KANDIDATI.find(function (k) { return k.obvod === vyberObvodu.value; });
+      zvolKandidata(prvy.id, true);
+      editor.prekresli();
+    });
+    vyberKandidata.addEventListener('change', function () {
+      zvolKandidata(vyberKandidata.value, true);
+      editor.prekresli();
+    });
+    document.querySelectorAll('input[name="text"]').forEach(function (r) {
+      r.addEventListener('change', function () { editor.prekresli(); });
+    });
+  </script>
+</body>
+</html>

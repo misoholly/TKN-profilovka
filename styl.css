@@ -1,0 +1,504 @@
+/* Rámček do profilovky – Tím Kraj Nitra · Zmena pre Šaľu
+   Brand: modrá #28408E · červená #D51C16 · červená loga #E52C3B · žltá #FEE33D · zlatá #F2BE48
+   Písmo Reddit Sans 400/700/900, text min. 18 px. */
+
+:root {
+  --modra: #28408e;
+  --modra-tmava: #1c2e68;
+  --cervena: #d51c16;
+  --cervena-tmava: #b01510;
+  --cervena-logo: #e52c3b;
+  --zlta: #fee33d;
+  --zlata: #f2be48;
+  --text: #142047;
+  --tlmeny: #44506f;
+  --svetla: #eef1f8;
+  --ciara: #c9d0e3;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: 'Reddit Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  font-size: 1.125rem; /* 18 px */
+  line-height: 1.55;
+  color: var(--text);
+  background: #fff;
+  border-top: 6px solid var(--zlta);
+}
+
+a {
+  color: var(--modra);
+  text-underline-offset: 4px;
+}
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--modra);
+  outline-offset: 3px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.preskocit {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  background: var(--zlta);
+  color: var(--text);
+  padding: 10px 16px;
+  font-weight: 700;
+  z-index: 10;
+}
+.preskocit:focus {
+  top: 12px;
+}
+
+.obal {
+  max-width: 760px;
+  margin: 0 auto;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+/* --- Hlavička --- */
+.hlavicka {
+  background: var(--modra);
+  color: #fff;
+}
+.hlavicka-vnutro {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding-top: 14px;
+  padding-bottom: 14px;
+}
+.znacka {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #fff;
+  text-decoration: none;
+  line-height: 1.15;
+}
+.znacka img {
+  display: block;
+  width: 48px;
+  height: 50px;
+}
+.znacka b {
+  display: block;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.znacka .zmena {
+  color: #fff;
+}
+.znacka .pre-salu {
+  color: var(--zlata);
+}
+.hlavicka .prepojenie {
+  color: #fff;
+  font-weight: 700;
+}
+.hlavicka .prepojenie:focus-visible,
+.znacka:focus-visible {
+  outline-color: var(--zlta);
+}
+
+/* --- Obsah --- */
+main {
+  padding-bottom: 48px;
+}
+h1 {
+  font-size: clamp(2rem, 6.5vw, 2.75rem);
+  line-height: 1.1;
+  font-weight: 900;
+  color: var(--modra);
+  margin: 36px 0 0;
+}
+h1::after {
+  content: '';
+  display: block;
+  width: 112px;
+  height: 8px;
+  margin-top: 16px;
+  background: linear-gradient(90deg, var(--zlta) 0 50%, var(--cervena-logo) 50% 100%);
+}
+.uvod {
+  font-size: 1.25rem;
+  margin: 22px 0 0;
+}
+.sukromie {
+  margin: 12px 0 0;
+  color: var(--tlmeny);
+}
+.prepojenie-stranok {
+  margin: 18px 0 0;
+  font-weight: 700;
+}
+
+.krok {
+  margin-top: 40px;
+}
+h2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  font-weight: 900;
+  color: var(--modra);
+  margin: 0 0 16px;
+}
+.cislo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--modra);
+  color: #fff;
+  font-size: 1.25rem;
+}
+.pomocny {
+  color: var(--tlmeny);
+  margin: 12px 0 0;
+}
+
+/* --- Výber tvaru (miniatúry) --- */
+.tvary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+.tvar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 132px;
+  padding: 8px 8px 10px;
+  border: 3px solid var(--ciara);
+  border-radius: 14px;
+  background: #fff;
+  cursor: pointer;
+  font-weight: 700;
+  text-align: center;
+}
+.tvar canvas {
+  display: block;
+  width: 112px;
+  height: 112px;
+  border-radius: 50%;
+}
+.tvar:hover {
+  border-color: var(--modra);
+}
+.tvar:has(input:checked) {
+  border-color: var(--modra);
+  background: var(--svetla);
+  box-shadow: 0 0 0 2px var(--modra);
+}
+.tvar:has(input:focus-visible) {
+  outline: 3px solid var(--modra);
+  outline-offset: 3px;
+}
+
+/* --- Tlačidlá --- */
+.tlacidlo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 12px 26px;
+  border: 3px solid var(--modra);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--modra);
+  font: inherit;
+  font-weight: 900;
+  line-height: 1.2;
+  cursor: pointer;
+  text-decoration: none;
+}
+.tlacidlo:hover {
+  background: var(--svetla);
+}
+.tlacidlo-modre {
+  background: var(--modra);
+  color: #fff;
+}
+.tlacidlo-modre:hover {
+  background: var(--modra-tmava);
+  border-color: var(--modra-tmava);
+}
+.tlacidlo-cervene {
+  background: var(--cervena);
+  border-color: var(--cervena);
+  color: #fff;
+}
+.tlacidlo-cervene:hover {
+  background: var(--cervena-tmava);
+  border-color: var(--cervena-tmava);
+}
+.tlacidlo:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+.tlacidlo:disabled:hover {
+  background: inherit;
+}
+.tlacidlo-cervene:disabled:hover {
+  background: var(--cervena);
+}
+label.tlacidlo:focus-within {
+  outline: 3px solid var(--modra);
+  outline-offset: 3px;
+}
+.odkaz-tlacidlo {
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--modra);
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+.odkaz-tlacidlo:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* --- Editor --- */
+.vyber-fotky {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+}
+.len-desktop {
+  display: none;
+}
+@media (hover: hover) and (pointer: fine) {
+  .len-desktop {
+    display: inline;
+  }
+}
+.chyba {
+  margin: 16px 0 0;
+  padding: 14px 18px;
+  border: 3px solid var(--cervena);
+  border-radius: 12px;
+  background: #fff5f4;
+}
+.nahlad-obal {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  margin-top: 20px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #1a1a1a;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.nahlad-obal canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  touch-action: none;
+}
+.hlaska {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: 12px;
+  width: fit-content;
+  max-width: calc(100% - 24px);
+  margin: 0 auto;
+  padding: 6px 14px;
+  border-radius: 8px;
+  background: var(--text);
+  color: #fff;
+  font-weight: 700;
+  text-align: center;
+  pointer-events: none;
+}
+.ovladanie {
+  max-width: 460px;
+  margin-top: 20px;
+}
+.ovladanie > label {
+  font-weight: 700;
+}
+.zoom {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+.zoom button {
+  flex: none;
+  width: 48px;
+  height: 48px;
+  border: 3px solid var(--modra);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--modra);
+  font: inherit;
+  font-size: 1.75rem;
+  font-weight: 900;
+  line-height: 1;
+  cursor: pointer;
+}
+.zoom button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.zoom input[type='range'] {
+  flex: 1;
+  min-width: 0;
+  height: 48px;
+  accent-color: var(--modra);
+}
+.akcie {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* --- Formulár kandidátov --- */
+.polia {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.pole {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 220px;
+  font-weight: 700;
+}
+select {
+  width: 100%;
+  min-height: 52px;
+  padding: 10px 14px;
+  border: 3px solid var(--modra);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--text);
+  font: inherit;
+  font-weight: 400;
+}
+.prepinac {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.prepinac label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 10px 18px;
+  border: 3px solid var(--ciara);
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+}
+.prepinac label:has(input:checked) {
+  border-color: var(--modra);
+  background: var(--svetla);
+}
+.prepinac input {
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  accent-color: var(--modra);
+}
+.prepinac small {
+  font-size: 1.125rem;
+  font-weight: 400;
+  color: var(--tlmeny);
+}
+
+/* --- Návod --- */
+.navod ol {
+  padding-left: 1.4em;
+  margin: 0;
+}
+.navod li + li {
+  margin-top: 6px;
+}
+.upozornenie {
+  margin-top: 20px;
+  padding: 18px 20px;
+  border-left: 8px solid var(--zlta);
+  border-radius: 8px;
+  background: var(--svetla);
+}
+.upozornenie p {
+  margin: 0;
+}
+.upozornenie p + p {
+  margin-top: 8px;
+}
+
+/* --- Pätička --- */
+.paticka {
+  border-top: 1px solid var(--ciara);
+  border-bottom: 6px solid var(--cervena-logo);
+  background: var(--svetla);
+  padding: 24px 0 28px;
+}
+.paticka p {
+  margin: 0;
+}
+.paticka p + p {
+  margin-top: 10px;
+}
+.zakonne {
+  font-weight: 700;
+}
+.vyber-fotky .pomocny {
+  margin: 0;
+}

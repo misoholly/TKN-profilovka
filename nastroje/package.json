@@ -1,0 +1,13 @@
+{
+  "name": "tkn-profilovka-nastroje",
+  "private": true,
+  "description": "Nástroje na lokálne testovanie a generovanie obrázkov pre web Rámček do profilovky (TKN). Na samotný web nie sú potrebné.",
+  "scripts": {
+    "server": "node server.cjs 8080",
+    "obrazky": "node generuj-obrazky.cjs",
+    "overenie": "node overenie.cjs"
+  },
+  "devDependencies": {
+    "playwright": "1.56.1"
+  }
+}
