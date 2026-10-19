@@ -2,7 +2,7 @@
 
 **Dátum:** 18. 10. 2026, doplnené 19. 10. 2026 · **Podľa:** zadanie 133, časť 7 · **Nástroj:** `node skripty/overenie.mjs` (Playwright, Google Chrome 1280 px a mobil 390 px s dotykom)
 
-**Výsledok: 46 / 46 automatických kontrol prešlo.** Čo sa nedalo overiť, je na konci.
+**Výsledok: 47 / 47 automatických kontrol prešlo.** Čo sa nedalo overiť, je na konci.
 
 ## Rámček Volím Čibrika
 
@@ -40,6 +40,7 @@
 |---|---|---|
 | 16 | Zdroj ani stránka neobsahujú „Kto ste“, „Vaše meno“, „svoje meno“, „Kde kandidujete“, „napíšte nám“, „moratórium“, „PROTOTYP“, „22:00“, „DOPLNIŤ“ | ✅ |
 | 16 | Variant „Kandidujem“ nie je v zdroji ani na stránke (odstránený 19. 10. 2026, stránka je verejná) | ✅ |
+| – | Titulná fotka: obrázok 1702 × 630 sa načíta, tlačidlo Stiahnuť má atribút download, odkaz z úvodu vedie na sekciu (doplnené 19. 10. 2026) | ✅ |
 | 16 | Pätička: objednávateľ aj dodávateľ „Tím Kraj Nitra – Zmena pre Šaľu“, copyright a odkaz na ochranu osobných údajov | ✅ |
 | 17 | Chybný súbor zobrazí červenú hlášku na stránke, žiadny `alert()`; ďalšie platné nahratie ju skryje | ✅ |
 | 4.8 | Z internetu sa načítava len Google Fonts, žiadna analytika ani cookies | ✅ |
@@ -56,6 +57,8 @@
 4. Vyhladené hrany písma v náhľade sa môžu v Chrome po pár sekundách mierne zmeniť (iná rasterizácia). Test preto porovnáva náhľady s toleranciou na hrany, nie presne.
 
 ## Čo sa nedalo overiť
+
+- **Titulná fotka na skutočnom profile.** Pracovný náhľad (`skripty/nahlad-titulky.html`) ukázal, že na mobile Facebook oreže boky obrázka: časť krúžku s číslom 2, začiatok textu „Za poslancov…“ a okraj loga. Grafika má navyše nedokončenú vetu „za poslanca VÚC Róberta“. TKN to schválilo nasadiť tak, ako je (19. 10. 2026).
 
 - **Zdieľanie a uloženie do fotiek na reálnom iPhone a Androide.** Treba vyskúšať ručne po nasadení na HTTPS adresu.
 - **Fotka HEIC z iPhonu.** Test overil hlášku pri poškodenom súbore. HEIC hlášku treba skúsiť na počítači s Chrome alebo Firefoxom; Safari HEIC väčšinou otvorí.

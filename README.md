@@ -12,6 +12,7 @@ Zdrojový kód: súkromný repozitár <https://github.com/misoholly/TKN-profilov
 |---|---|
 | `index.html` | celá stránka (HTML, CSS aj JavaScript v jednom súbore) |
 | `og-image.png` | obrázok 1200 × 630, ktorý sa ukáže pri zdieľaní odkazu na Facebooku |
+| `titulna-fotka-tkn.png` | titulná fotka na Facebook (1702 × 630), ktorú si návštevníci stiahnu v sekcii „Titulná fotka na Facebook“ |
 | `favicon.svg`, `favicon-32.png`, `apple-touch-icon.png` | ikonky webu z loga TKN |
 | `robots.txt` | povolenie pre vyhľadávače |
 | `vercel.json`, `.vercelignore` | len pre prípad nasadenia na Vercel (presmerovanie `/kandidati`); inde sa nepoužijú |
@@ -41,13 +42,14 @@ Do koreňa webu (alebo do podpriečinka) stačí nahrať tieto súbory:
 ```
 index.html
 og-image.png
+titulna-fotka-tkn.png
 favicon.svg
 favicon-32.png
 apple-touch-icon.png
 robots.txt
 ```
 
-Priečinok `skripty/`, `README.md`, `OVERENIE.md`, `vercel.json` a `.vercelignore` na web nepatria.
+Priečinok `skripty/` (aj pracovný náhľad `skripty/nahlad-titulky.html`), `README.md`, `OVERENIE.md`, `vercel.json` a `.vercelignore` na web nepatria.
 
 ### Požiadavky na server
 
