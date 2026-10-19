@@ -216,9 +216,10 @@ const zoomHodnota = page => page.evaluate(() => document.getElementById('zoom').
   // 16. texty
   const zdroj = fs.readFileSync(path.join(KOREN, 'index.html'), 'utf8');
   const telo = await page.evaluate(() => document.body.innerText);
-  const zakazane = ['Kto ste', 'Vaše meno', 'svoje meno', 'Kde kandidujete', 'napíšte nám', 'moratórium', 'PROTOTYP', '22:00'];
+  const zakazane = ['Kto ste', 'Vaše meno', 'svoje meno', 'Kde kandidujete', 'napíšte nám', 'moratórium', 'PROTOTYP', '22:00', 'DOPLNIŤ'];
   const najdene = zakazane.filter(z => zdroj.includes(z) || telo.includes(z));
-  over(16, najdene.length === 0, 'Zdroj ani stránka neobsahujú zakázané texty', najdene.join(', ') || ('DOPLNIŤ v pätičke: ' + (zdroj.includes('DOPLNIŤ') ? 'áno (len preview, pred ostrou verziou doplniť)' : 'nie')));
+  over(16, najdene.length === 0, 'Zdroj ani stránka neobsahujú zakázané texty', najdene.join(', '));
+  over(16, telo.includes('Objednávateľ: Tím Kraj Nitra – Zmena pre Šaľu · Dodávateľ: Tím Kraj Nitra – Zmena pre Šaľu') && telo.includes('© Copyright 2026 - Zmena pre Šaľu. Všetky práva vyhradené.') && zdroj.includes('href="https://www.zmenapresalu.sk/ochrana-udajov-gdpr"'), 'Pätička: objednávateľ, dodávateľ, copyright a odkaz na ochranu osobných údajov');
   over('4.8', !/analytics|gtag|fbq|document\.cookie/i.test(zdroj), 'Žiadna analytika ani cookies v zdroji');
   over('4.3', /<meta property="og:image"/.test(zdroj) && /<link rel="canonical"/.test(zdroj) && /twitter:card" content="summary_large_image"/.test(zdroj) && /og:locale" content="sk_SK"/.test(zdroj), 'Meta: canonical, og:*, twitter:card');
 

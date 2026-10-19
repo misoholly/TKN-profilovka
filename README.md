@@ -4,6 +4,8 @@ Jedna statická stránka, na ktorej si človek pridá do profilovej fotky rámč
 
 Všetko beží v prehliadači. Fotka sa nikam neposiela, stránka nemá server, databázu, analytiku ani cookies. Z internetu načíta len písmo Reddit Sans z Google Fonts.
 
+Zdrojový kód: súkromný repozitár <https://github.com/misoholly/TKN-profilovka>, vetva `main`.
+
 ## Čo je v priečinku
 
 | Súbor | Na čo je |
@@ -11,7 +13,8 @@ Všetko beží v prehliadači. Fotka sa nikam neposiela, stránka nemá server, 
 | `index.html` | celá stránka (HTML, CSS aj JavaScript v jednom súbore) |
 | `og-image.png` | obrázok 1200 × 630, ktorý sa ukáže pri zdieľaní odkazu na Facebooku |
 | `favicon.svg`, `favicon-32.png`, `apple-touch-icon.png` | ikonky webu z loga TKN |
-| `robots.txt`, `vercel.json`, `.vercelignore` | nastavenia pre hosting (adresa `/kandidati` presmeruje na `/#kandidati`) |
+| `robots.txt` | povolenie pre vyhľadávače |
+| `vercel.json`, `.vercelignore` | len pre prípad nasadenia na Vercel (presmerovanie `/kandidati`); inde sa nepoužijú |
 | `OVERENIE.md` | čo sa otestovalo a čo nie |
 | `skripty/` | pomocné skripty pre vývojára (OG obrázok, ikonky, test); web ich nepotrebuje |
 
@@ -27,44 +30,56 @@ Kódy kandidátov: 1. obvod `o1-07` Čibrik, `o1-09` Kántorová, `o1-10` Ková�
 
 ---
 
-## Postup nasadenia (pre Michala, len klikanie)
+## Nasadenie (pre developera TKN)
 
-### Krok 1 – Repozitár na GitHube (hotové)
+Stránka je čisto statická: žiadny build, server, databáza ani premenné prostredia. Funguje na akomkoľvek statickom hostingu (vlastný webserver, Netlify, Cloudflare Pages, GitHub Pages, FTP na existujúci web…).
 
-Kód je v súkromnom repozitári <https://github.com/misoholly/TKN-profilovka>, vo vetve **main**, ktorá je nastavená ako hlavná. Netreba nič robiť.
+### Čo nahrať
 
-V repozitári je aj staršia vetva `claude/gallant-lamport-l6j1t6`. To je predchádzajúca verzia podľa zadania 120 s dvoma stránkami. Nepoužíva sa, ale ostala zachovaná. Jej súbor NASADENIE.md (premenovanie vetvy) už neplatí.
+Do koreňa webu (alebo do podpriečinka) stačí nahrať tieto súbory:
 
-### Krok 2 – Vercel (preview adresa na testovanie)
+```
+index.html
+og-image.png
+favicon.svg
+favicon-32.png
+apple-touch-icon.png
+robots.txt
+```
 
-1. Otvorte <https://vercel.com/new> a prihláste sa cez **Continue with GitHub**.
-2. V zozname **Import Git Repository** nájdite `TKN-profilovka` a kliknite **Import**. Ak ho nevidíte, kliknite **Adjust GitHub App Permissions** a povoľte prístup k tomuto repozitáru.
-3. **Framework Preset:** nechajte **Other**. **Build Command** a **Output Directory** nechajte prázdne.
-4. Kliknite **Deploy**. Po pár sekundách dostanete adresu typu `tkn-profilovka.vercel.app`.
-5. Otvorte ju na počítači aj na mobile a vyskúšajte: nahrať fotku, stiahnuť, na mobile „Uložiť do fotiek / zdieľať“.
+Priečinok `skripty/`, `README.md`, `OVERENIE.md`, `vercel.json` a `.vercelignore` na web nepatria.
 
-Každá ďalšia zmena v repozitári sa na Vercel nasadí sama do minúty.
+### Požiadavky na server
 
-### Krok 3 – Vlastná doména (až keď ju TKN potvrdí)
+- **HTTPS je nutné.** Tlačidlo „Uložiť do fotiek / zdieľať“ (Web Share API) a spoľahlivé sťahovanie na mobiloch fungujú len na zabezpečenej adrese.
+- `index.html` posielať s `Content-Type: text/html; charset=utf-8`.
+- Stránka načítava z internetu len Google Fonts (`fonts.googleapis.com`, `fonts.gstatic.com`). Ak server posiela Content-Security-Policy, musí ich povoliť pre `style-src` a `font-src`, a povoliť inline `<script>` a `<style>` (všetko je v `index.html`). Obrázok fotky sa spracúva cez `blob:` a `canvas`, takže `img-src` potrebuje `'self' blob: data:`.
+- Žiadne cookies ani analytika – pätička to sľubuje. Nepridávať meracie kódy hostingu.
 
-Navrhovaná adresa: `profilovka.zmenapresalu.sk`.
+### Adresa webu
 
-1. Vo Verceli otvorte projekt `tkn-profilovka` → **Settings** → **Domains**.
-2. Napíšte `profilovka.zmenapresalu.sk` a kliknite **Add**.
-3. Vercel ukáže záznam, ktorý treba pridať u správcu domény. Bude to **CNAME** s hodnotou podobnou `cname.vercel-dns.com` (presnú hodnotu skopírujte z Vercelu).
-4. Tento jeden riadok pošlite tomu, kto v TKN spravuje doménu `zmenapresalu.sk`. Pridá ho v administrácii domény (typicky „DNS záznamy“ → „Pridať záznam“ → typ CNAME, názov `profilovka`).
-5. Keď sa záznam prejaví (zvyčajne do hodiny), Vercel ukáže zelené **Valid Configuration** a sám zapne HTTPS.
+V `index.html` je na 4 miestach adresa `https://profilovka.zmenapresalu.sk` (`canonical`, `og:url`, `og:image`, `twitter:image`). Ak bude web na inej adrese, treba ju prepísať všade, inak nebude fungovať náhľad pri zdieľaní na Facebooku. `og:image` musí byť absolútna adresa s `https://`.
 
-Ak TKN bude chcieť inú adresu, treba ju prepísať aj v `index.html` (krok 4, bod 2).
+### Voliteľné presmerovanie `/kandidati`
 
-### Krok 4 – Pred ostrým spustením (povinné)
+Odkaz `/#kandidati` funguje bez nastavenia. Ak má fungovať aj kratšia adresa `/kandidati`, treba presmerovanie `/kandidati` → `/#kandidati` (302). Príklady:
 
-1. **Pätička – zákonné označenie** (zákon č. 181/2014 Z. z.). V `index.html` nájdite riadok s `Objednávateľ: [DOPLNIŤ] · Dodávateľ: [DOPLNIŤ]` a nahraďte ho textom od TKN.
-2. **Adresa webu v hlavičke.** V `index.html` je na 4 miestach `https://profilovka.zmenapresalu.sk`. Ak bude adresa iná, nahraďte ju všade (bez toho nebude fungovať obrázok pri zdieľaní na Facebooku).
-3. Úprava sa robí priamo na GitHube: otvorte `index.html` → ikonka ceruzky (**Edit this file**) → zmeňte text → **Commit changes**. Vercel to nasadí sám.
-4. Po nasadení vložte adresu do <https://developers.facebook.com/tools/debug/> a kliknite **Scrape Again**, nech si Facebook načíta nový náhľad.
+| Hosting | Nastavenie |
+|---|---|
+| Vercel | už je v `vercel.json` |
+| Netlify, Cloudflare Pages | súbor `_redirects` s riadkom `/kandidati /#kandidati 302` |
+| Apache | v `.htaccess`: `Redirect 302 /kandidati /#kandidati` |
+| nginx | `location = /kandidati { return 302 /#kandidati; }` |
 
-### Do piatka zmeniť text rámčeka
+### Po nasadení
+
+1. Otvoriť web na počítači aj na telefóne: nahrať fotku, posunúť a priblížiť ju (aj dvoma prstami), stiahnuť; na mobile „Uložiť do fotiek / zdieľať“.
+2. Vyskúšať odkaz `/#o1-09` (musí sa predvoliť Ingrid Kántorová, č. 9).
+3. Vložiť adresu do <https://developers.facebook.com/tools/debug/> a kliknúť **Scrape Again**, nech si Facebook načíta náhľad.
+
+Zoznam toho, čo sa už otestovalo automaticky a čo treba skúsiť ručne, je v `OVERENIE.md`.
+
+## Do piatka zmeniť text rámčeka
 
 Text rámčeka Volím Čibrika je v `index.html` v poli `MOTIVY` (riadky `r1` – `r5` pre tvary A a B, `c` pre nálepku C). Texty kandidátskych rámčekov sú vo funkcii `riadky()`. Čísla kandidátov sú v poli `KANDIDATI` – **nemeniť bez overenia** v oficiálnom zozname mesta.
 
