@@ -87,7 +87,6 @@
   @media (max-width:480px){
     h1{font-size:30px}
     .volba{width:calc(33.33% - 7px)} .volba canvas{width:100%;height:auto;aspect-ratio:1/1}
-    .volby.texty .volba{width:calc(50% - 5px)}
     .kandidati{grid-template-columns:1fr 1fr} .kand{gap:8px;padding:8px;font-size:15px} .kand .c{width:44px;height:44px;font-size:20px}
   }
 </style>
@@ -131,9 +130,6 @@
     <h3 id="kand-nadpis">Kandidát</h3>
     <div class="kandidati" id="kandidati" role="group" aria-labelledby="kand-nadpis"></div>
     <div class="listok" id="listok" aria-live="polite"></div>
-    <h3>Text</h3>
-    <div class="volby texty" id="motivy-kandidat" role="group" aria-label="Text rámčeka"></div>
-    <p class="mala">Text „Kandidujem“ je určený samotným kandidátom.</p>
     <h3>Tvar</h3>
     <div class="volby formy" id="formy-kandidat" role="group" aria-label="Tvar rámčeka"></div>
     <p class="mala">Čísla sú podľa zoznamov zaregistrovaných kandidátov <a href="https://sala.sk/data/component_file/100/13027/f8008.pdf" target="_blank" rel="noopener">na poslancov</a> a <a href="https://sala.sk/data/component_file/100/13027/f8007.pdf" target="_blank" rel="noopener">na primátora</a> (Mesto Šaľa, 10. 9. 2026). Rovnaké poradie je na hlasovacom lístku.</p>
@@ -252,21 +248,15 @@ const OBVODY=[
 ];
 const PREDVOLENY_KANDIDAT='o1-07';
 
-// texty kandidátskeho rámčeka: pas = riadok nad číslom (A, B); c1 + c2 = dva riadky nad číslom na nálepke C.
+// text kandidátskeho rámčeka: pas = riadok nad číslom (A, B); c1 + c2 = dva riadky nad číslom na nálepke C.
+// Verejná stránka má len text „Krúžkujte“. Druhý text (ohlásenie vlastnej kandidatúry) bol 19. 10. 2026 zámerne odstránený – nepridávať späť.
 const MOTIVY_K=[
   {id:'kruzkujte',  nazov:'Krúžkujte'},
-  {id:'kandidujem', nazov:'Kandidujem'},
 ];
 function riadky(k, motivId){
   const prim=k.obvod===0, o=k.obvod+'. OBVOD';
-  let pas, c1, c2;
-  if(motivId==='kandidujem'){
-    pas = prim ? 'KANDIDUJEM ZA PRIMÁTORA' : 'KANDIDUJEM · '+o;
-    c1 = 'KANDIDUJEM'; c2 = prim ? 'ZA PRIMÁTORA' : o;
-  } else {
-    pas = prim ? 'ZA PRIMÁTORA KRÚŽKUJTE' : o+' · KRÚŽKUJTE';
-    c1 = prim ? 'ZA PRIMÁTORA' : o; c2 = 'KRÚŽKUJTE';
-  }
+  const pas = prim ? 'ZA PRIMÁTORA KRÚŽKUJTE' : o+' · KRÚŽKUJTE';
+  const c1 = prim ? 'ZA PRIMÁTORA' : o, c2 = 'KRÚŽKUJTE';
   return {pas, c1, c2, cislo:String(k.cislo), meno:(k.meno+' '+k.priezvisko).toUpperCase(), tkn:'TÍM KRAJ NITRA'};
 }
 
@@ -484,11 +474,6 @@ function vykresliVolby(){
   const mo=$('motivy'); mo.innerHTML=''; mo.hidden=MOTIVY.length<2;
   if(typ==='cibrik') MOTIVY.forEach(m=>{
     mo.appendChild(volba(miniatura(forma.id,{motiv:m},240), m.nazov, m===motiv, ()=>{motiv=m; vykresliVolby(); kresliNahlad();}));
-  });
-  // texty kandidátskeho rámčeka
-  const mk=$('motivy-kandidat'); mk.innerHTML='';
-  if(typ==='kandidat') MOTIVY_K.forEach(m=>{
-    mk.appendChild(volba(miniatura(forma.id,{motivK:m},400), m.nazov, m===motivK, ()=>{motivK=m; vykresliVolby(); kresliNahlad();}));
   });
   // tvar – spoločný pre oba typy; kreslí sa len do viditeľnej časti
   const fo=$(typ==='kandidat'?'formy-kandidat':'formy-cibrik'); $('formy-cibrik').innerHTML=''; $('formy-kandidat').innerHTML='';

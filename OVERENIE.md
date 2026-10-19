@@ -2,7 +2,7 @@
 
 **Dátum:** 18. 10. 2026, doplnené 19. 10. 2026 · **Podľa:** zadanie 133, časť 7 · **Nástroj:** `node skripty/overenie.mjs` (Playwright, Google Chrome 1280 px a mobil 390 px s dotykom)
 
-**Výsledok: 45 / 45 automatických kontrol prešlo.** Čo sa nedalo overiť, je na konci.
+**Výsledok: 46 / 46 automatických kontrol prešlo.** Čo sa nedalo overiť, je na konci.
 
 ## Rámček Volím Čibrika
 
@@ -28,7 +28,7 @@
 |---|---|---|
 | 10 | Po prepnutí je predvybraný 1. obvod a č. 7 Róbert Čibrik; stiahne sa `profilovka-tkn-cibrik-7.png` | ✅ |
 | 11 | „Primátor“ sám vyberie Čibrika č. 2; 2. a 3. obvod nechajú kandidáta nevybraného a Stiahnuť je neaktívne | ✅ |
-| 12 | Všetkých 19 kandidátov × 2 texty × 3 tvary = 114 súborov, každý so správnym číslom v názve | ✅ |
+| 12 | Všetkých 19 kandidátov × 3 tvary = 57 súborov, každý so správnym číslom v názve | ✅ |
 | 12 | Čísla a mená v rámčekoch sa zhodujú s `05-kandidati-prehlad-cisel.png` | ✅ vizuálne, všetkých 19 |
 | 13 | Prepnutie „Volím Čibrika“ ↔ „S číslom kandidáta“ zachová fotku aj výrez | ✅ |
 | 14 | `#kandidati`, `#o1-09`, `?k=o3-12` a zmena hashu za behu fungujú; neznámy kód sa ignoruje; adresa sa pri klikaní nemení | ✅ |
@@ -39,6 +39,7 @@
 | # | Kontrola | Výsledok |
 |---|---|---|
 | 16 | Zdroj ani stránka neobsahujú „Kto ste“, „Vaše meno“, „svoje meno“, „Kde kandidujete“, „napíšte nám“, „moratórium“, „PROTOTYP“, „22:00“, „DOPLNIŤ“ | ✅ |
+| 16 | Variant „Kandidujem“ nie je v zdroji ani na stránke (odstránený 19. 10. 2026, stránka je verejná) | ✅ |
 | 16 | Pätička: objednávateľ aj dodávateľ „Tím Kraj Nitra – Zmena pre Šaľu“, copyright a odkaz na ochranu osobných údajov | ✅ |
 | 17 | Chybný súbor zobrazí červenú hlášku na stránke, žiadny `alert()`; ďalšie platné nahratie ju skryje | ✅ |
 | 4.8 | Z internetu sa načítava len Google Fonts, žiadna analytika ani cookies | ✅ |

@@ -81,7 +81,7 @@ Zoznam toho, čo sa už otestovalo automaticky a čo treba skúsiť ručne, je v
 
 ## Do piatka zmeniť text rámčeka
 
-Text rámčeka Volím Čibrika je v `index.html` v poli `MOTIVY` (riadky `r1` – `r5` pre tvary A a B, `c` pre nálepku C). Texty kandidátskych rámčekov sú vo funkcii `riadky()`. Čísla kandidátov sú v poli `KANDIDATI` – **nemeniť bez overenia** v oficiálnom zozname mesta.
+Text rámčeka Volím Čibrika je v `index.html` v poli `MOTIVY` (riadky `r1` – `r5` pre tvary A a B, `c` pre nálepku C). Text kandidátskeho rámčeka (len „Krúžkujte“) je vo funkcii `riadky()`. Čísla kandidátov sú v poli `KANDIDATI` – **nemeniť bez overenia** v oficiálnom zozname mesta.
 
 ---
 

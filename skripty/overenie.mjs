@@ -148,7 +148,7 @@ const zoomHodnota = page => page.evaluate(() => document.getElementById('zoom').
   const hNikto = await snimka(page);
   await page.click('.kand:nth-child(1)'); over(11, rozdiel(hNikto, await snimka(page)) > 5000, 'Po výbere kandidáta sa rámček prekreslí (pred výberom zástupný „?“ / MENO KANDIDÁTA)');
 
-  // 12. všetkých 19 × 2 texty × 3 tvary – stiahnuť a overiť názov a rozmer
+  // 12. všetkých 19 kandidátov × 3 tvary – stiahnuť a overiť názov a rozmer (text je len jeden: Krúžkujte)
   const KAND = await page.evaluate(() => [...document.querySelectorAll('#obvody .obvod')].map(b => b.textContent));
   let pocet = 0, zlyNazov = [];
   const ocak = { '1. obvod': ['cibrik-7', 'kantorova-9', 'kovac-10', 'matajs-11', 'petrusek-15', 'suran-18'], '2. obvod': ['balaz-1', 'gabarik-3', 'marekova-8', 'novakova-11', 'schreiber-13', 'vlk-19'], '3. obvod': ['baca-2', 'elekova-4', 'kovacs-11', 'kovacova-12', 'plenta-15', 'sedlarova-18'], 'Primátor': ['cibrik-primator-2'] };
@@ -159,8 +159,7 @@ const zoomHodnota = page => page.evaluate(() => document.getElementById('zoom').
     for (let k = 1; k <= n; k++) {
       await page.click(`.kand:nth-child(${k})`);
       const nazovK = (await page.locator(`.kand:nth-child(${k})`).innerText()).replace(/\s+/g, ' ');
-      for (let t = 1; t <= 2; t++) {
-        await page.click(`#motivy-kandidat .volba:nth-child(${t})`);
+      for (let t = 1; t <= 1; t++) {
         for (let f = 1; f <= 3; f++) {
           await page.click(`#formy-kandidat .volba:nth-child(${f})`);
           const { nazov, png, buf } = await stiahni(page); pocet++;
@@ -171,11 +170,11 @@ const zoomHodnota = page => page.evaluate(() => document.getElementById('zoom').
       }
     }
   }
-  over(12, pocet === 19 * 6 && zlyNazov.length === 0, 'Všetkých 19 kandidátov × 2 texty × 3 tvary sa stiahne so správnym názvom (číslom)', `${pocet} súborov${zlyNazov.length ? ', zle: ' + zlyNazov.join(', ') : ''}`);
+  over(12, pocet === 19 * 3 && zlyNazov.length === 0, 'Všetkých 19 kandidátov × 3 tvary sa stiahne so správnym názvom (číslom)', `${pocet} súborov${zlyNazov.length ? ', zle: ' + zlyNazov.join(', ') : ''}`);
   fs.writeFileSync(path.join(OUT, 'kandidati-prehlad.json'), JSON.stringify(prehlad, null, 2));
 
   // 15. dlhé mená – text sa zmenší, nie oreže (rovnaký algoritmus ako text() v stránke)
-  await page.click('#obvody .obvod:nth-child(3)'); await page.click('#motivy-kandidat .volba:nth-child(1)');
+  await page.click('#obvody .obvod:nth-child(3)');
   for (const [k, meno] of [[4, 'kovacova-12'], [3, 'kovacs-11']]) {
     await page.click(`.kand:nth-child(${k})`);
     for (const [f, tvar] of [[1, 'A'], [3, 'C']]) {
@@ -185,7 +184,7 @@ const zoomHodnota = page => page.evaluate(() => document.getElementById('zoom').
   }
   const sirky = await page.evaluate(() => { const c = document.createElement('canvas').getContext('2d'); const F = "'Reddit Sans', Arial, sans-serif";
     function sirkaZm(s, vaha, v, maxW) { c.font = `${vaha} ${v}px ${F}`; let w = c.measureText(s).width; while (w > maxW && v > 10) { v -= 1; c.font = `${vaha} ${v}px ${F}`; w = c.measureText(s).width; } return { v, w: Math.round(w), maxW }; }
-    return { 'A Kováčová': sirkaZm('KATARÍNA KOVÁČOVÁ', 900, 40, 540), 'B Kováčová': sirkaZm('KATARÍNA KOVÁČOVÁ', 900, 38, 500), 'C Kováčová': sirkaZm('KATARÍNA KOVÁČOVÁ', 900, 32, 380), 'C Kovács': sirkaZm('FRANTIŠEK KOVÁCS', 900, 32, 380), 'A pás primátor': sirkaZm('KANDIDUJEM ZA PRIMÁTORA', 900, 58, 800), 'B pás primátor': sirkaZm('ZA PRIMÁTORA KRÚŽKUJTE', 900, 46, 780) }; });
+    return { 'A Kováčová': sirkaZm('KATARÍNA KOVÁČOVÁ', 900, 40, 540), 'B Kováčová': sirkaZm('KATARÍNA KOVÁČOVÁ', 900, 38, 500), 'C Kováčová': sirkaZm('KATARÍNA KOVÁČOVÁ', 900, 32, 380), 'C Kovács': sirkaZm('FRANTIŠEK KOVÁCS', 900, 32, 380), 'A pás primátor': sirkaZm('ZA PRIMÁTORA KRÚŽKUJTE', 900, 58, 800), 'B pás primátor': sirkaZm('ZA PRIMÁTORA KRÚŽKUJTE', 900, 46, 780) }; });
   over(15, Object.values(sirky).every(x => x.w <= x.maxW && x.v >= 24), 'Dlhé mená sa zmestia (text sa zmenší cez maxW, nie oreže)', Object.entries(sirky).map(([k, v]) => `${k}: ${v.v}px, ${v.w} ≤ ${v.maxW}`).join('; '));
 
   // 14. odkazy
@@ -217,6 +216,8 @@ const zoomHodnota = page => page.evaluate(() => document.getElementById('zoom').
   const zdroj = fs.readFileSync(path.join(KOREN, 'index.html'), 'utf8');
   const telo = await page.evaluate(() => document.body.innerText);
   const zakazane = ['Kto ste', 'Vaše meno', 'svoje meno', 'Kde kandidujete', 'napíšte nám', 'moratórium', 'PROTOTYP', '22:00', 'DOPLNIŤ'];
+  const kandidujem = /kandidujem/i.test(zdroj) || /kandidujem/i.test(telo) || (await page.evaluate(() => document.querySelectorAll('#motivy-kandidat').length)) > 0;
+  over(16, !kandidujem, 'Variant „Kandidujem“ nie je v zdroji, na stránke ani ako voľba');
   const najdene = zakazane.filter(z => zdroj.includes(z) || telo.includes(z));
   over(16, najdene.length === 0, 'Zdroj ani stránka neobsahujú zakázané texty', najdene.join(', '));
   over(16, telo.includes('Objednávateľ: Tím Kraj Nitra – Zmena pre Šaľu · Dodávateľ: Tím Kraj Nitra – Zmena pre Šaľu') && telo.includes('© Copyright 2026 - Zmena pre Šaľu. Všetky práva vyhradené.') && zdroj.includes('href="https://www.zmenapresalu.sk/ochrana-udajov-gdpr"'), 'Pätička: objednávateľ, dodávateľ, copyright a odkaz na ochranu osobných údajov');
