@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Náhľad titulnej fotky na Facebooku</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Reddit+Sans:wght@400;700;900&display=swap">
+<style>
+  :root{--modra:#28408E;--siva:#65676B;--fb:#F0F2F5}
+  body{margin:0;background:var(--fb);font-family:'Reddit Sans',Arial,sans-serif;color:#1C1E21}
+  .obal{max-width:1000px;margin:0 auto;padding:24px 16px 48px}
+  h1{font-size:26px;margin:0 0 4px;color:var(--modra)}
+  h2{font-size:20px;margin:36px 0 10px;color:var(--modra)}
+  p{margin:6px 0;line-height:1.45}
+  .mala{font-size:15px;color:var(--siva)}
+  /* Facebook – počítač: titulka v pomere ~2,7 : 1, profilovka 168 px vľavo dole, prekrýva spodok titulky */
+  .fb-pc{background:#fff;border-radius:8px;box-shadow:0 1px 2px rgba(0,0,0,.2);padding-bottom:20px}
+  .fb-pc .cover{position:relative;aspect-ratio:820/312;border-radius:8px 8px 0 0;overflow:hidden;background:#ddd}
+  .fb-pc .cover img{width:100%;height:100%;object-fit:cover;display:block}
+  .fb-pc .riadok{display:flex;align-items:flex-end;gap:16px;padding:0 32px;margin-top:-84px;position:relative}
+  .fb-pc .meno{font-size:30px;font-weight:700;padding-bottom:16px}
+  /* Facebook – mobil: titulka v pomere 16 : 9 (640 × 360), boky sa orežú */
+  .telefon{width:390px;background:#fff;border:10px solid #111;border-radius:36px;overflow:hidden;box-shadow:0 4px 18px rgba(0,0,0,.25)}
+  .telefon .cover{position:relative;aspect-ratio:640/360;overflow:hidden;background:#ddd}
+  .telefon .cover img{width:100%;height:100%;object-fit:cover;display:block}
+  .telefon .riadok{padding:0 14px 18px;margin-top:-60px;position:relative}
+  .telefon .meno{font-size:22px;font-weight:700;margin-top:8px}
+  .profil{flex:none;border-radius:50%;border:4px solid #fff;background:#fff;overflow:hidden;display:block}
+  .fb-pc .profil{width:168px;height:168px}
+  .telefon .profil{width:120px;height:120px}
+  .profil img{width:100%;height:100%;display:block}
+  .vedla{display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start}
+  .vedla > div{flex:1;min-width:300px}
+  .orez{position:relative;margin-top:10px}
+  .orez img{width:100%;display:block}
+  .orez .ram{position:absolute;top:0;bottom:0;border:3px dashed #D51C16;box-sizing:border-box}
+  .orez .tien{position:absolute;top:0;bottom:0;background:rgba(0,0,0,.45)}
+</style>
+</head>
+<body>
+<div class="obal">
+  <h1>Náhľad titulnej fotky na Facebooku</h1>
+  <p class="mala">Pracovný náhľad, na web sa nenasadzuje. Rozmery sú podľa odporúčaní Mety (počítač 820 × 312, mobil 640 × 360). Facebook rozloženie občas mení, presný výsledok ukáže až skutočný profil.</p>
+
+  <h2>Na počítači</h2>
+  <div class="fb-pc">
+    <div class="cover"><img src="../titulna-fotka-tkn.png" alt=""></div>
+    <div class="riadok">
+      <span class="profil"><img src="../overenie/_profil.png" alt=""></span>
+      <div class="meno">Ján Volič</div>
+    </div>
+  </div>
+
+  <h2>Na mobile</h2>
+  <div class="vedla">
+    <div style="flex:none;min-width:0">
+      <div class="telefon">
+        <div class="cover"><img src="../titulna-fotka-tkn.png" alt=""></div>
+        <div class="riadok">
+          <span class="profil"><img src="../overenie/_profil.png" alt=""></span>
+          <div class="meno">Ján Volič</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p><strong>Čo z obrázka mobil ukáže</strong></p>
+      <p class="mala">Červený rám je časť, ktorú Facebook na mobile zobrazí. Stmavené boky odreže.</p>
+      <div class="orez" id="orez"><img src="../titulna-fotka-tkn.png" alt=""></div>
+    </div>
+  </div>
+</div>
+<script>
+  // výrez 16:9 zo stredu obrázka 1702 × 630: výška 630 → šírka 1120
+  const W=1702,H=630, w=H*16/9, x=(W-w)/2;
+  const o=document.getElementById('orez');
+  o.insertAdjacentHTML('beforeend',
+    `<div class="tien" style="left:0;width:${x/W*100}%"></div>`+
+    `<div class="tien" style="right:0;width:${x/W*100}%"></div>`+
+    `<div class="ram" style="left:${x/W*100}%;width:${w/W*100}%"></div>`);
+</script>
+</body>
+</html>

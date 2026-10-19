@@ -64,6 +64,8 @@
   .btn.obrys{background:#fff;color:var(--modra);font-weight:700}
   .btn.hlavne{background:var(--cervena);border-color:var(--cervena);font-size:20px;padding:15px 28px}
   .btn:disabled{opacity:.45;cursor:default}
+  a.btn{display:inline-block;text-decoration:none}
+  .titulka{display:block;width:100%;height:auto;margin-top:16px;border:1px solid #D8DBE3}
   .nahlad{position:relative;margin-top:18px;width:100%;max-width:440px;aspect-ratio:1/1;background:#2B2F3A;touch-action:none;user-select:none;-webkit-user-select:none;outline:none}
   .nahlad:focus-visible{box-shadow:0 0 0 4px var(--zlta)}
   .nahlad canvas{width:100%;height:100%;display:block;cursor:grab}
@@ -111,6 +113,7 @@
   <div class="pod"></div>
   <p>Dajte svojim známym vedieť, koho 24. októbra volíte. Vyberte rámček, nahrajte fotku, dolaďte výrez a stiahnite si ju – potom si ju nastavte ako profilovú.</p>
   <p>Fotka zostáva vo vašom prehliadači. Neodosiela sa nám, neukladáme ju a nikde sa neobjaví.</p>
+  <p class="mala">Na stiahnutie je aj <a href="#titulna-fotka">titulná fotka na Facebook</a>.</p>
 
   <h2>1. Vyberte rámček</h2>
   <div class="obvody typy" id="typy" role="group" aria-label="Typ rámčeka">
@@ -176,6 +179,21 @@
     <p>Facebook ponúkne doladenie výrezu. Ak s fotkou pohnete, odrežete si časť rámčeka. Nechajte ju tak, ako je, a rovno uložte.</p>
   </div>
   <p class="mala">Funguje to rovnako na Instagrame, LinkedIne aj vo WhatsApp – všade, kde sa profilovka oreže do kruhu.</p>
+
+  <h2 id="titulna-fotka">Titulná fotka na Facebook</h2>
+  <p>K profilovke si môžete dať aj titulnú fotku – široký obrázok navrchu vášho profilu.</p>
+  <img class="titulka" src="titulna-fotka-tkn.png" width="1702" height="630" loading="lazy" alt="Titulná fotka: Za primátora Šale volím 2. Róbert Čibrik. Za poslancov Šale volím 6 kandidátov Tím Kraj Nitra vo svojom obvode. Voľby sú už v sobotu 24. októbra do 20.00 h.">
+  <div class="tlacidla">
+    <a class="btn" id="titulka-stiahnut" href="titulna-fotka-tkn.png" download="titulna-fotka-tkn.png">Stiahnuť titulnú fotku</a>
+    <button class="btn obrys" id="titulka-zdielat" type="button" hidden>Uložiť do fotiek / zdieľať</button>
+  </div>
+  <p class="mala">Súbor titulna-fotka-tkn.png, 1702 × 630 px.</p>
+  <ol>
+    <li>Stiahnite si ju tlačidlom vyššie.</li>
+    <li>Na Facebooku otvorte svoj profil a kliknite na „Upraviť titulnú fotku“. Na mobile ťuknite na ikonku fotoaparátu na titulnej fotke.</li>
+    <li>Vyberte „Nahrať fotku“ a stiahnutý súbor.</li>
+    <li>Fotku neposúvajte a kliknite na „Uložiť zmeny“.</li>
+  </ol>
 </main>
 
 <footer>
@@ -641,6 +659,18 @@ $('zdielat').onclick=async()=>{
   if(typ==='kandidat'&&!kandidat) return;
   const blob=await doBlobu(); const f=new File([blob],nazovSuboru(),{type:'image/png'});
   try{ await navigator.share({files:[f],title:'Moja profilovka'}); }catch(e){}
+};
+
+// ---------- titulná fotka: na mobile aj „Uložiť do fotiek / zdieľať“ ----------
+const TITULKA='titulna-fotka-tkn.png';
+(async()=>{
+  try{ const f=new File([new Blob()],TITULKA,{type:'image/png'}); if(navigator.canShare&&navigator.canShare({files:[f]})) $('titulka-zdielat').hidden=false; }catch(e){}
+})();
+$('titulka-zdielat').onclick=async()=>{
+  try{
+    const blob=await (await fetch(TITULKA)).blob();
+    await navigator.share({files:[new File([blob],TITULKA,{type:'image/png'})],title:'Titulná fotka'});
+  }catch(e){}
 };
 
 // ---------- štart: fonty, odkaz ----------
